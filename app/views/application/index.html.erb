@@ -1,0 +1,59 @@
+<style>
+    .window {
+        width: 100vw;
+        height: 100vh;
+        text-align: center;
+        background-color: #222;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<div style="background-color: #333; color: #ddd; height: 3.4rem; padding-top: 0.4rem;">
+    <label style="font-size: 2rem;">Project Path</label>
+    <input id="projectPath" type="text" style="width: 16rem" />
+    <button onclick="window.loadApp()" style="height: 2.8rem; vertical-align: top;">Go!</button>
+</div>
+<div id="app-container" class="window">
+
+</div>
+
+<script type="module">
+    import { GitViewer } from './app.js'
+    const projectPathElem = document.getElementById('projectPath');
+    projectPathElem.value = window.localStorage.getItem('projectPath');
+    const settings = {
+        projectPath: projectPathElem.value,
+        cachedAssetPath: '/assets',
+        version: 'default',
+        appTitle: 'GitViewer',
+        copyright: 'Kieryn Phipps',
+        view: {
+            maximized: true,
+        },
+        theme: {
+            darkMode: true,
+            colors: {
+                primary: '#02a378',
+                primaryText: '#fff',
+                secondary: '#7802a3',
+                highlight: '#ffbb00',
+                dark: '#000',
+                darker: '#546',
+                medium: '#879',
+                lighter: '#98a',
+                light: '#fff',
+            }
+        }
+    }
+    const App = new GitViewer(settings)
+    App.run({
+        cachedAssetPath: '/assets.cached',
+        version: '.',
+    });
+
+    window.loadApp = () => {
+        window.localStorage.setItem('projectPath', projectPathElem.value);
+        document.location.reload();
+    }
+</script>

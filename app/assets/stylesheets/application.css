@@ -1,0 +1,479 @@
+html {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+    position: fixed;
+  }
+  
+  * {
+    margin: 0;
+    touch-action: none;
+  }
+  
+  #layout span.material-icons {
+    font-size: 1.2rem;
+  }
+  
+  .centered {
+    vertical-align: middle;
+    text-align: center;
+    align-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%; /* take the parent's width */
+  }
+  
+  .overlay {
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    vertical-align: middle;
+    text-align: center;
+    align-content: center;
+    opacity: 1;
+  }
+  
+  div.rotate-overlay {
+    z-index: 100;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    vertical-align: middle;
+    text-align: center;
+    align-content: center;
+    display: none;
+  }
+  
+  .large-icon {
+    font-size: 4rem;
+  }
+  
+  div.rotate-overlay .large-icon {
+    box-shadow: 0 0 0.5rem #000;
+    border: 0.3rem solid #fff;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+  
+  @media (orientation: landscape) {
+    div.layout-mobile div.rotate-overlay {
+      visibility: visible;
+      display: table-cell;
+    }
+  }
+  
+  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+  
+  body {
+    min-height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+  }
+  /* Default no-select config */
+  * {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+    padding: 0;
+    margin: 0;
+    border: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 2vh;
+  }
+  th {
+    height: 3rem;
+  }
+  td {
+    height: 2.2rem;
+  }
+  h1,h2,h3,h4,h5 {
+    display: inline-block; 
+  }
+  h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 100;
+    vertical-align: baseline;
+  }
+  div, header {
+    width: 100%;
+    text-align: center;
+    margin: auto;
+  }
+  header, footer {
+    margin-top: 0.5em;
+    margin-bottom: auto;
+  }
+  header.app-header {
+    height: 2.4rem;            /* Header height */
+  } 
+  footer.app-footer {
+    width: 100%;
+    text-align: top;
+    position: absolute;
+    bottom: 0;
+    height: 2rem;            /* Footer height */
+  }
+  footer > p {
+    margin-top: 0.3em;
+  }
+  #app-container {
+    vertical-align: middle;
+    padding: auto;
+    margin: auto;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  #koreApp {
+    vertical-align: middle;
+    margin: auto;
+  }
+  button {
+    border-radius: 0.3em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    box-shadow: 0.1rem 0.1rem 0.2rem #000;
+    height: 3rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+  }
+  
+  
+  @keyframes fadeIn {
+    0% {opacity:0;}
+    30% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  button.nav-button {
+    width: 3.5rem;
+    height: 3rem;
+    font-size: 2.2rem;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 0.2em;
+    display: inline-block;
+    vertical-align: top;
+  }
+  button.nav-button > span {
+    float: left;
+    position: relative;
+    left: 0.6rem;
+    top: 1.2rem;
+    height: 0;
+    font-size: 1rem;
+    font-weight: bolder;
+    text-shadow: -0.1rem -0.2rem 0 #445,  0.1rem -0.2rem 0 #445;
+  }
+  
+  button.nav-button:hover > span {
+    text-shadow: -0.1rem -0.2rem 0 #778,  0.1rem -0.2rem 0 #778;
+  }
+  
+  #appHeader {
+    z-index: 2;
+    margin: 0;
+  }
+  
+  canvas, input {
+    box-shadow: 0.1rem 0.1rem 0.2rem #222;
+  }
+  
+  #settingsPanel td {
+    width: 100%;
+  }
+
+  #appHeader button {
+    display: none;
+  }
+  
+  #appHeader button, #settingsPanel button.closebtn {
+    width: 8rem;
+    height: 3rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.2em;
+    margin-left: 0.2em;
+    margin-top: 0.2em;
+    margin-right: 0.2em;
+    float: left;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: none;
+    box-shadow: none;
+  }
+  #appHeader #btnFullScreen {
+    float: right;
+    left: auto;
+    right: 0;
+  }
+  #appHeader #btnReloadPage {
+    float: right;
+    left: auto;
+    right: 0;
+  }
+  #appHeader #btnFullScreen:fullscreen {
+    visibility: hidden;
+  }
+  #appHeader h1 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-left: 9rem;
+    float: left;
+  }
+  
+  /* The side navigation menu */
+  .sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    overflow-y: hidden;
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    opacity: 0;
+  }
+  
+  .sidenav.sidenav-center {
+    top: 50vh; /* Stay at the top */
+    left: 50vw;
+    height: 0;
+    opacity: 0;
+  }
+  
+  .sidenav button.closebtn-corner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 1.8rem;
+    padding: 0;
+  }
+  
+  button.labelbtn {
+    width: 8rem;
+  }
+  button.labelbtn.closebtn {
+    font-weight: normal;
+  }
+  
+  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+  #main {
+    transition: margin-left .5s;
+    padding: 20px;
+  }
+  
+  #contactInfo img {
+    height: 1rem;
+  }
+  
+  #contactInfo {
+    width: 80%;
+    margin: auto;
+  }
+  
+  .layout-desktop #contactInfo {
+    float: left;
+    position: absolute;
+    top: 0;
+  }
+  
+  #contactInfo a {
+    font-size: 1rem;
+  }
+  
+  div.page p {
+    margin-bottom: 1.5rem;
+    margin-left: 8rem;
+    margin-right: 3rem;
+    font-size: 1.6rem;
+  }
+  
+  div.page {
+    margin: auto;
+    width: 60%;
+    margin-right: 0;
+    background-color: #fff0;
+    background-image: linear-gradient(to right, #fff0, 
+       #fffc, #fffc, #fffc,  #fffa, 
+        #fffa,  #fffa,  #fffa,  #fffa);
+  }
+  
+  .layout-mobile div.page {
+    margin: 0;
+    width: 100%;
+    margin-right: auto;
+    background-image: linear-gradient(to bottom, #fff, 
+    #fffa, #fffa, #fffa,  #fffa);
+  }
+  
+  ul, li {
+    text-align: left;
+  }
+  
+  .layout-mobile div.page p {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  
+  input {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    height: 1.6rem; /* Specified height */
+  }
+  
+  input[type="text"], textarea {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    height: 2.8rem;
+    border-radius: 0.4rem;
+    padding-left: 0.3em;
+    width: 8rem;
+    -webkit-user-select: initial;
+    -khtml-user-select: initial;
+    -moz-user-select: initial;
+    -ms-user-select: initial;
+    user-select: initial;
+  }
+  
+  input[type="text"] {
+    font-size: 2rem;
+  }
+  
+  #movePgn {
+    font-size: 1rem;
+    height: 1.2rem;
+    border: none;
+    background-color: #333;
+  }
+  
+  textarea {
+    font-style: 1.4rem;
+    margin: 0.6rem;
+  }
+  
+  input[type="text"]:focus, input[type="text"]:hover + input[type="text"]:focus {
+    outline: none;
+  }
+  
+  input[type="range"] {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    height: 1.6rem; /* Specified height */
+    width: 8rem;
+    border-radius: 0.8rem;  
+    outline: none; /* Remove outline */
+    padding-right: 0.4rem;
+  }
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    border-radius: 50%;  
+    margin-left: 0.2rem;
+    width: 1.2rem; /* Set a specific slider handle width */
+    height: 1.2rem; /* Slider handle height */
+    cursor: pointer; /* Cursor on hover */
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    margin-left: 0.2rem;
+    width: 1.2rem; /* Set a specific slider handle width */
+    height: 1.2rem; /* Slider handle height */
+    border-radius: 50%;  
+    cursor: pointer; /* Cursor on hover */
+  }
+  
+  /* The switch - the box around the slider */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 3rem;
+    height: 1.6rem;
+  }
+  
+  .switch.switch-vertical {
+    width: 1.6rem;
+    height: 3rem;
+  }
+  
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 1.2rem;
+    width: 1.2rem;
+    left: 0.17rem;
+    top: 0.17rem;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  label.toggle-side {
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+  }
+  
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(1.3rem);
+    -ms-transform: translateX(1.3rem);
+    transform: translateX(1.3rem);
+  }
+  
+  .switch-vertical input:checked + .slider:before {
+    -webkit-transform: translateY(1.3rem);
+    -ms-transform: translateY(1.3rem);
+    transform: translateY(1.3rem);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 1rem;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  
